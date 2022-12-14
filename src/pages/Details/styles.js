@@ -6,17 +6,12 @@ export const Container = styled.div`
 `
 
 export const Form = styled.form`
-  margin-inline: auto;
-  padding-block: 6.4rem;
-  padding-inline: 2.4rem;
-  border-radius: 1.6rem;
-  background-color: '#001119';
-  max-width: 47.6rem;
-  height: fit-content;
+  padding: 0 136px;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  gap: 3.2rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   > legend {
     font-size: 3.2rem;
     text-align: center;
