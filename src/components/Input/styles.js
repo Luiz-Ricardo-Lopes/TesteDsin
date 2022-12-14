@@ -8,14 +8,16 @@ export const Container = styled.div`
   color: '#C4C4CC';
 
   > input {
-    height: 4.8rem;
-    padding: 1.4rem;
-    border: 1px solid '#7C7C8A';
+    height: 1.8rem;
+    padding: 1rem;
+    border: 1px solid #a6688a;
     border-radius: 0.5rem;
     font-size: 1.6rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #8c655d;
     background: transparent;
     &::placeholder {
-      color: '#7C7C8A';
+      color: #8c655d;
       font-size: 1.6rem;
     }
   }

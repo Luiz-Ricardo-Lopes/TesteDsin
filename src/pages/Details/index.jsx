@@ -1,37 +1,29 @@
-import { Container, Form } from "./styles"
-import Select from 'react-select'
+import { Container, Form, } from "./styles"
+import { CalendarEndSelect, Section } from "../../components/schedules/styles"
+import Select  from 'react-select'
 import { Input } from "../../components/Input";
 import { useState } from "react";
 import  DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
+import { currentDate } from "./currentDate";
+
 
 const services = [
-  {id:1, categoria : "Corte", preco: "60", duracao: 60},
-  {id:2, categoria : "Escova", preco: "60", duracao: 60},
-  {id:3, categoria : "Alisamento", preco: "60", duracao: 60},
-  {id:4, categoria : "Progressiva", preco: "60", duracao: 60},
-  {id:5, categoria : "Chapinha", preco: "60", duracao: 60},
-  {id:6, categoria : "Pintura", preco: "60", duracao: 60}
-  
-
-]
-
-const teste = [
-  {value:1, label : "Corte R$: 60", },
-  {value:2, label : "Escova", },
-  {value:3, label : "Alisamento", },
-  {value:4, label : "Progressiva", },
-  {value:5, label : "Chapinha", },
-  {value:6, label : "Pintura", }
+  {value:1, label : "Corte R$:60" },
+  {value:2, label : "Escova R$:75" },
+  {value:3, label : "Alisamento R$:100" },
+  {value:4, label : "Progressiva R$:120" },
+  {value:5, label : "Chapinha R$:65"  },
+  {value:6, label : "Pintura R$:80" }
   
 
 ]
 const listServices = services.map(
   (s) => 
-  <li key={s.id}> - {s.categoria} - R$:{s.preco} </li>
+  <li key={s.id}> - {s.label} </li>
 )
 
-const agendamentos = [
+const schedules = [
   {id:1, date : "14-12-2022 09:00", duracao: 60},
   {id:2, date : "14-12-2022 10:00", duracao: 60},
   {id:3, date : "14-12-2022 11:00", duracao: 60},
@@ -42,29 +34,29 @@ const agendamentos = [
 
 ]
 
-const horarios = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"]
+const times = [{value:1, label: "09:00"},
+{value:1, label: "10:00"},
+{value:1, label: "11:00"},
+{value:1, label: "12:00"},
+{value:1, label: "13:00"},
+{value:1, label: "14:00"},
+{value:1, label: "15:00"},
+{value:1, label: "16:00"},
+{value:1, label: "17:00"},
+{value:1, label: "18:00"},
+]
 
-let horariosAgendados = []
+let schenduledTimes = []
 
 
 
 
-const listHorarioDisponiveis = agendamentos.map(
-  agendamento => 
-  horariosAgendados.push(agendamento.date.substr(11,6))
+const listAvailableTimes = schedules.map(
+  schedules => 
+  schenduledTimes.push(schedules.date.substr(11,6))
   
 )
-console.log(horarios.filter(horario => !horariosAgendados.includes(horario)))
-
-
-
-
-
-
-
-
-
-
+console.log(times.filter(horary => !schenduledTimes.includes(horary)))
 
 
 
@@ -92,49 +84,63 @@ export function Details () {
     
     let formatYearMonthDay = dateFormatAux(date)
     
-    console.log(formatYearMonthDay)
+    
   }
 
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault()  
     
     
+    dateFormat(selectedDate)   
     
-    dateFormat(selectedDate)
   }
   
 
   const [selectedDate, setSelectedDate] = useState(null)
 
-
   
+  const [selectedServices, setSelectedServices] = useState(null)
+  
+  const[selectedTime, setSelectedTime] =useState(null)
   
   return (
   <Container>       
     <Form>
     <p>Escolha a data do agendamento</p>
+    
+    <CalendarEndSelect>
+
+    
     <DatePicker 
-      selected={selectedDate}
+      selected={selectedDate}      
       onChange={date => setSelectedDate(date)}
+      selectsStart
+      startDate={currentDate}
       placeholderText="Selecione uma data."
       dateFormat="dd/MM/yyyy"
+      
     />
-
+        
+    <Select
+    placeholder="Selecione o serviço"
+    options={services} 
+    defaultValue={selectedServices}
+    onChange={setSelectedServices}
     
+    />   
 
+    <Select 
+    placeholder="Selecione um horário"
+    options={times}
+    defaultValue={selectedTime }
+    onChange={setSelectedTime}
     
-    <Select options={teste} />
-
-    <Input
-    type="text"
-    label='horário'
-    title="Escolha seu horário"
-    placeholder="Escolha o melhor horário"
-    
-
     />
-
+    </CalendarEndSelect> 
+   
+    <Section>
+   
     <p>Identifique-se</p>
     <Input
     type="tel"
@@ -154,6 +160,7 @@ export function Details () {
     <button onClick={handleSubmit}>
       Agendar Serviços
     </button>
+    </Section>
 
     </Form>  
     
