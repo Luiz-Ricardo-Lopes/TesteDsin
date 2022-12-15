@@ -58,7 +58,9 @@ const listAvailableTimes = schedules.map(
 )
 console.log(times.filter(horary => !schenduledTimes.includes(horary)))
 
-
+export function saveSchendules () {
+  
+}
 
 export function Details () {
 
@@ -86,7 +88,17 @@ export function Details () {
     
     
   }
+  
 
+  const [selectedDate, setSelectedDate] = useState(null)
+
+  
+  const [selectedServices, setSelectedServices] = useState(null)
+  
+  const[selectedTime, setSelectedTime] =useState(null)
+
+  const [savePhone, setSavePhone] = useState("")
+  const [saveName, setSaveName] = useState("")
 
   const handleSubmit = (event) => {
     event.preventDefault()  
@@ -97,12 +109,6 @@ export function Details () {
   }
   
 
-  const [selectedDate, setSelectedDate] = useState(null)
-
-  
-  const [selectedServices, setSelectedServices] = useState(null)
-  
-  const[selectedTime, setSelectedTime] =useState(null)
   
   return (
   <Container>       
@@ -126,7 +132,7 @@ export function Details () {
     placeholder="Selecione o serviço"
     options={services} 
     defaultValue={selectedServices}
-    onChange={setSelectedServices}
+    onChange={e => setSelectedServices(e.target.value)}
     
     />   
 
@@ -134,7 +140,7 @@ export function Details () {
     placeholder="Selecione um horário"
     options={times}
     defaultValue={selectedTime }
-    onChange={setSelectedTime}
+    onChange={e => setSelectedTime(e.target.value)} 
     
     />
     </CalendarEndSelect> 
@@ -146,7 +152,7 @@ export function Details () {
     type="tel"
     label='Celular'    
     placeholder="Celular com DDD"
-    size='14'
+    onChange={e => setSavePhone(e.target.value)} 
     
 
     />
@@ -154,6 +160,7 @@ export function Details () {
     type="text"
     label='Nome'
     placeholder="Nome do usuário"
+    onChange={e => setSaveName(e.target.value)}
     
 
     />
