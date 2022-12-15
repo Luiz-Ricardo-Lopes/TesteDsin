@@ -2,7 +2,7 @@ import { Container, Form, } from "./styles"
 import { CalendarEndSelect, Section } from "../../components/schedules/styles"
 import Select  from 'react-select'
 import { Input } from "../../components/Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import  DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import { currentDate } from "./currentDate";
@@ -80,6 +80,17 @@ export function Details () {
       return [day, month, year].join("-");
   }
 
+  const [data, setData] = useState(null)
+
+  useEffect(() => {
+    async function fetchNote(){
+      const response = await api.get(`/services/${params.id}`)
+      setData(response.data)
+    }
+
+    fetchNote()
+  }, [])
+
 
   const dateFormat = (date) => {
     console.log(new Date(date))
@@ -98,7 +109,10 @@ export function Details () {
   const[selectedTime, setSelectedTime] =useState(null)
 
   const [savePhone, setSavePhone] = useState("")
+
   const [saveName, setSaveName] = useState("")
+
+  
 
   const handleSubmit = (event) => {
     event.preventDefault()  
