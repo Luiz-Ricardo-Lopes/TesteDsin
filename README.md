@@ -1,5 +1,6 @@
 # TesteDsin
-
+A tecnologia utilizada para desenvolver o projeto foi
+#React js
 
 Para instalar as dependancias use o comando:
 
